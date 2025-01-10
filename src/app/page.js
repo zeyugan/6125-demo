@@ -7,7 +7,7 @@ export default function HomePageContent() {
       <div className="d-flex justify-content-between">
         {/* Summary Cards */}
         <div className="card p-3 mx-2">
-          <h5>Total Urgent Cases 5 Days</h5>
+          <h5>Total Transactions in 5 Days</h5>
           <p className="text-danger">20</p>
         </div>
         <div className="card p-3 mx-2">
@@ -16,7 +16,7 @@ export default function HomePageContent() {
         </div>
       </div>
       <div className="mt-4">
-        <h5>All Finance Officers' Task List</h5>
+        <h5>All Transaction List</h5>
         <div className="card p-3">
           {/* Task List Table */}
           <table className="table table-hover">
