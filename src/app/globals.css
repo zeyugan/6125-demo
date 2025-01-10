@@ -24,18 +24,13 @@ body {
   width: 80px !important;
 }
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: hidden;
+.nav-link {
+  padding: 10px 15px;
 }
 
-.content {
-  position: relative;
-  overflow-x: hidden;
+.sidebar .nav-link.text-truncate {
+  display: block;
+  text-align: center;
 }
 
 
