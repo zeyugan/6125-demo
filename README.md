@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+PS2
+- asset security validation system
+- trust credit system for users with a model
+- user's credibiilty level determines his lendng/borrowing limit
+- use existing DeFi validation model
+- Lending Pool feature
+- source of credit score:
+  - on-platform trading activity
+  - staking activity
+  - import other model's evaluation of the user's wallet
 
-## Getting Started
+As a user, I can see my credit score breakdown in my account detail page
+As a user, I can see how may I improve my credit score in FAQ page
+As a user, I can borrow or lend based on my credit score
+As a system, I automatically calculate user's credit score based on his trading activity, staking activity, and other model (TBC)'s evaluation of the user's wallet
 
-First, run the development server:
+PS1
+- asset tokenization system
+- tokenize real world asset onto blockchain in the form of NFT?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+As a user, I can deposit/stake my NFTs to earn interest and increase my credit score
+As a user, I can trade my NFTs on the platform Marketplace
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+PS3
+- FAQ page and guide to how to use the platform for defi trading
+- simplified top-up/fiat to crypto conversion process by integration with existing payment gateway and crypto exchange platform
+- automated account creation and KYC process, create account when use links to metamask wallet
+- automated and simplified staking process (++PS2)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+As a system, I automatically create an account for the user when he links his metamask wallet
+As a user, I can top up my account with fiat and convert to crypto with direct integration with existing payment gateway and crypto exchange platform
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Workflows
 
-To learn more about Next.js, take a look at the following resources:
+Lend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Borrow and repay
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deposite NFT
 
-## Deploy on Vercel
+Marketplace trade
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Automated Account Creation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Team work
+
+- Zhang Shilong
+  - Lend/Borrow page frontend
+  - workflow diagrams
+- Zeyu
+  - FAQ, Account Setting, Homepage
+- Fu Danlin
+  - Poster finalization
+- Wang Guanzhong
+  - Marketplace and Quick Top-up
