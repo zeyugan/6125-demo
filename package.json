@@ -13,10 +13,12 @@
     "@typescript-eslint/parser": "^8.19.1",
     "6125-demo": "file:",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.7",
     "ethers": "^6.13.5",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
