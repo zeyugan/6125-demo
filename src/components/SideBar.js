@@ -1,11 +1,12 @@
 'use client';
 import { useState } from "react";
-export default function SideBar() {
 
+export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
+
   const menuItems = [
     { title: 'Dashboard', collapsedTitle: 'D', href: '/' },
-    { title: 'Cases Management', collapsedTitle: 'C', href: '/cases' },
+    { title: 'Marketplace', collapsedTitle: 'M', href: '/marketplace' },
     { title: 'FAQ', collapsedTitle: 'F', href: '/faq' },
   ];
 
