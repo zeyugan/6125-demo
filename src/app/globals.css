@@ -33,4 +33,28 @@ body {
   text-align: center;
 }
 
+.btn-light {
+  color: #000;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.btn-light:hover {
+  background-color: #e6e6e6;
+}
+
+.card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+
+
 
