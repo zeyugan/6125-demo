@@ -1,74 +1,91 @@
+"use client";
+
+import React from "react";
+import CryptoBadge from "../components/CryptoBadge";
+
 export default function DashboardPage() {
   const walletDetails = [
-    { crypto: 'BTC', balance: '1.234', value: '0.000076' },
-    { crypto: 'ETH', balance: '10.456', value: '0.000238' },
-    { crypto: 'USDT', balance: '5000', value: '5000.000000' },
+    { crypto: "BTC", balance: "1.234", value: "0.000076" },
+    { crypto: "ETH", balance: "10.456", value: "0.000238" },
+    { crypto: "USDT",  balance: "5000", value: "5000.000000" },
   ];
 
   const activeTrades = [
-    { crypto: 'BTC', asset: 'Bitcoin Token', type: 'Cryptocurrency', amount: '0.5', price: '0.000076', activity: 'Buy' },
-    { crypto: 'ETH', asset: 'Ether NFT #123', type: 'NFT', amount: '1', price: '0.000238', activity: 'Sell' },
-    { crypto: 'SOL', asset: 'Solana Asset', type: 'Others', amount: '50', price: '0.001234', activity: 'Buy' },
-    { crypto: 'USDT', asset: 'Tether USD', type: 'Stablecoin', amount: '2000', price: '5000.000000', activity: 'Sell' },
-    { crypto: 'ADA', asset: 'Cardano NFT', type: 'NFT', amount: '300', price: '0.002300', activity: 'Buy' },
+    {
+      crypto: "BTC",
+      asset: "Bitcoin Token",
+      type: "Cryptocurrency",
+      amount: "0.5",
+      price: "0.000076",
+    },
+    {
+      crypto: "ETH",
+      asset: "Ether NFT #123",
+      type: "NFT",
+      amount: "1",
+      price: "0.000238",
+    },
+    {
+      crypto: "SOL",
+      asset: "Solana Asset",
+      type: "Others",
+      amount: "50",
+      price: "0.001234",
+    },
+    {
+      crypto: "USDT",
+      asset: "Tether USD",
+      type: "Stablecoin",
+      amount: "2000",
+      price: "5000.000000",
+    },
+    {
+      crypto: "ADA",
+      asset: "Cardano NFT",
+      type: "NFT",
+      amount: "300",
+      price: "0.002300",
+    },
   ];
 
   const recentTransactions = [
-    { date: '2025-01-10', crypto: 'BTC', asset: 'Bitcoin Token', type: 'Cryptocurrency', amount: '0.5', dealer: '0x123...abcd', price: '0.000076', activity: 'Buy' },
-    { date: '2025-01-11', crypto: 'ETH', asset: 'Ether NFT #123', type: 'NFT', amount: '1.2', dealer: '0x456...efgh', price: '0.000238', activity: 'Sell' },
-    { date: '2025-01-12', crypto: 'USDT', asset: 'Tether USD', type: 'Stablecoin', amount: '500', dealer: '0x789...ijkl', price: '5000.000000', activity: 'Buy' },
-    { date: '2025-01-12', crypto: 'SOL', asset: 'Solana Asset', type: 'Others', amount: '15', dealer: '0xabc...mnop', price: '0.001234', activity: 'Sell' },
+    {
+      date: "2025-01-10",
+      crypto: "BTC",
+      asset: "Bitcoin Token",
+      type: "Cryptocurrency",
+      amount: "0.5",
+      dealer: "0x123...abcd",
+      price: "0.000076",
+    },
+    {
+      date: "2025-01-11",
+      crypto: "ETH",
+      asset: "Ether NFT #123",
+      type: "NFT",
+      amount: "1.2",
+      dealer: "0x456...efgh",
+      price: "0.000238",
+    },
+    {
+      date: "2025-01-12",
+      crypto: "USDT",
+      asset: "Tether USD",
+      type: "Stablecoin",
+      amount: "500",
+      dealer: "0x789...ijkl",
+      price: "5000.000000",
+    },
+    {
+      date: "2025-01-12",
+      crypto: "SOL",
+      asset: "Solana Asset",
+      type: "Others",
+      amount: "15",
+      dealer: "0xabc...mnop",
+      price: "0.001234",
+    },
   ];
-
-  const getCryptoBadge = (crypto) => {
-    const colors = {
-      BTC: '#f44336', // Red
-      ETH: '#4caf50', // Green
-      USDT: '#2196f3', // Blue
-      SOL: '#9c27b0', // Purple
-      ADA: '#ff9800', // Orange
-    };
-
-    const bgColor = colors[crypto] || '#607d8b'; // Default to grey if crypto not listed
-
-    return (
-      <span
-        style={{
-          display: 'inline-block',
-          backgroundColor: bgColor,
-          color: 'white',
-          padding: '2px 8px',
-          borderRadius: '4px',
-          fontWeight: 'bold',
-          fontSize: '12px',
-          marginRight: '5px',
-        }}
-      >
-        {crypto}
-      </span>
-    );
-  };
-
-  const getActivityBadge = (activity) => {
-    const bgColor = activity === 'Buy' ? '#ffe6e6' : '#e6ffe6'; // Light red for Buy, light green for Sell
-    const textColor = activity === 'Buy' ? '#d9534f' : '#5cb85c'; // Red text for Buy, green text for Sell
-
-    return (
-      <span
-        style={{
-          display: 'inline-block',
-          backgroundColor: bgColor,
-          color: textColor,
-          padding: '2px 8px',
-          borderRadius: '4px',
-          fontWeight: 'bold',
-          fontSize: '12px',
-        }}
-      >
-        {activity}
-      </span>
-    );
-  };
 
   return (
     <div className="container-fluid mt-4">
@@ -82,7 +99,7 @@ export default function DashboardPage() {
           <div className="card">
             <div
               className="card-header"
-              style={{ backgroundColor: '#f8f9fa', color: '#000' }}
+              style={{ backgroundColor: "#f8f9fa", color: "#000" }}
             >
               <h5>Your Wallet Details</h5>
             </div>
@@ -98,12 +115,13 @@ export default function DashboardPage() {
                 <tbody>
                   {walletDetails.map((wallet, index) => (
                     <tr key={index}>
-                      <td>{wallet.crypto}</td>
-                      <td>{wallet.balance}</td>
                       <td>
-                        {getCryptoBadge(wallet.crypto)}
-                        {wallet.value}
+                        <CryptoBadge
+                          crypto={wallet.crypto}
+                        />
                       </td>
+                      <td>{wallet.balance}</td>
+                      <td>{wallet.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -117,7 +135,7 @@ export default function DashboardPage() {
           <div className="card">
             <div
               className="card-header"
-              style={{ backgroundColor: '#f8f9fa', color: '#000' }}
+              style={{ backgroundColor: "#f8f9fa", color: "#000" }}
             >
               <h5>Active Trades</h5>
             </div>
@@ -125,26 +143,25 @@ export default function DashboardPage() {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Cryptocurrency</th>
                     <th>Asset</th>
                     <th>Type</th>
-                    <th>Activity</th>
                     <th>Amount</th>
+                    <th>Cryptocurrency</th>
                     <th>Price</th>
                   </tr>
                 </thead>
                 <tbody>
                   {activeTrades.map((trade, index) => (
                     <tr key={index}>
-                      <td>{trade.crypto}</td>
                       <td>{trade.asset}</td>
                       <td>{trade.type}</td>
-                      <td>{getActivityBadge(trade.activity)}</td>
                       <td>{trade.amount}</td>
                       <td>
-                        {getCryptoBadge(trade.crypto)}
-                        {trade.price}
+                        <CryptoBadge
+                          crypto={trade.crypto}
+                        />
                       </td>
+                      <td>{trade.price}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -161,12 +178,11 @@ export default function DashboardPage() {
           <thead>
             <tr>
               <th>Date</th>
-              <th>Cryptocurrency</th>
               <th>Asset</th>
               <th>Type</th>
-              <th>Activity</th>
               <th>Amount</th>
-              <th>Dealer Wallet</th>
+              <th>Dealer</th>
+              <th>Cryptocurrency</th>
               <th>Price</th>
             </tr>
           </thead>
@@ -174,16 +190,16 @@ export default function DashboardPage() {
             {recentTransactions.map((tx, index) => (
               <tr key={index}>
                 <td>{tx.date}</td>
-                <td>{tx.crypto}</td>
                 <td>{tx.asset}</td>
                 <td>{tx.type}</td>
-                <td>{getActivityBadge(tx.activity)}</td>
                 <td>{tx.amount}</td>
                 <td>{tx.dealer}</td>
                 <td>
-                  {getCryptoBadge(tx.crypto)}
-                  {tx.price}
+                  <CryptoBadge
+                    crypto={tx.crypto}
+                  />
                 </td>
+                <td>{tx.price}</td>
               </tr>
             ))}
           </tbody>
