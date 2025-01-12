@@ -6,8 +6,11 @@ export default function SideBar() {
 
   const menuItems = [
     { title: 'Dashboard', collapsedTitle: 'D', href: '/' },
-    { title: 'Marketplace', collapsedTitle: 'M', href: '/marketplace' },
+    { title: 'Cases Management', collapsedTitle: 'C', href: '/cases' },
     { title: 'FAQ', collapsedTitle: 'F', href: '/faq' },
+    { title: 'Marketplace', collapsedTitle: 'M', href: '/marketplace' },
+    { title: 'Quick Top-up', collapsedTitle: 'T', href: '/qtopup' },
+    { title: 'Account Setting', collapsedTitle: 'A', href: '/account-setting' },
   ];
 
   return (
