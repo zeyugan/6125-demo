@@ -5,7 +5,7 @@ export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
 
   const menuItems = [
-    { title: 'Dashboard', collapsedTitle: 'D', href: '/' },
+    { title: 'Dashboard', collapsedTitle: 'D', href: '/dashboard' },
     { title: 'Cases Management', collapsedTitle: 'C', href: '/cases' },
     { title: 'FAQ', collapsedTitle: 'F', href: '/faq' },
     { title: 'Marketplace', collapsedTitle: 'M', href: '/marketplace' },
