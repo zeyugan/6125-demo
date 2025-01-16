@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import CryptoBadge from "../../components/CryptoBadge";
+import CryptoBadge from "../../../components/CryptoBadge";
 
 export default function DashboardPage() {
   const walletDetails = [
