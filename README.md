@@ -34,14 +34,20 @@ As a user, I can top up my account with fiat and convert to crypto with direct i
 ## Workflows
 
 Lend
+![Lend Workflow](pics/lend%20workflow.drawio.png)
 
-Borrow and repay
+Borrow and Repay
+![Borrow and Repay Workflow](pics/Borrow%20and%20Repay.drawio.png)
 
 Deposite NFT
 
+![Deposite NFT Workflow](pics/Deposit%20NFT.drawio.png)
+
 Marketplace trade
+![Marketplace Trade Workflow](pics/Marketplace%20Trade%20Workflow.drawio.png)
 
 Automated Account Creation
+![Automated Account Creation Workflow](pics/Automated%20Account%20Creation%20Workflow.drawio.png)
 
 ## Team work
 

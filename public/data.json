@@ -1,0 +1,38 @@
+{
+  "user": {
+    "creditScore": 1414,
+    "breakdown": [
+      250,
+      300,
+      200
+    ],
+    "maxBorrowLimit": 2718,
+    "maxLendLimit": 1857
+  },
+  "borrowBills": [
+    {
+      "id": 1,
+      "asset": "ETH",
+      "amount": 200,
+      "status": "Paid"
+    },
+    {
+      "id": 2,
+      "asset": "BTC",
+      "amount": 300,
+      "status": "Paid"
+    },
+    {
+      "id": 3,
+      "asset": "SOL",
+      "amount": 400,
+      "status": "Paid"
+    },
+    {
+      "id": 4,
+      "asset": "ETH",
+      "amount": 100,
+      "status": "Paid"
+    }
+  ]
+}
