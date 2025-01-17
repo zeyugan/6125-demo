@@ -1,113 +1,259 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function LendingPage() {
-    // User Credit Score
-    const [userCreditScore, setUserCreditScore] = useState({
-        creditScore: 750,
-        breakdown: {
-            trading: 300,
-            staking: 200,
-            externalModel: 250,
-        },
-        maxBorrowLimit: 5000,
-        maxLendLimit: 2000,
-    });
+    const [userCreditScore, setUserCreditScore] = useState(null);
+    const [borrowBills, setBorrowBills] = useState([]);
+    const [lendAmount, setLendAmount] = useState(0); // 借入金额
+    const [selectedAsset, setSelectedAsset] = useState(""); // 选择的资产
 
-    // Credit Breakdown Chart
-    const creditBreakdownData = {
-        labels: ["Trading Activity", "Staking Activity", "External Model"],
-        datasets: [
-            {
-                label: "Credit Breakdown",
-                data: Object.values(userCreditScore.breakdown),
-                backgroundColor: ["#4caf50", "#2196f3", "#ff9800"],
-                borderWidth: 1,
-            },
-        ],
+    // 初始化数据
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("/api/update-bill");
+                const result = await response.json();
+                console.log(result);
+                setUserCreditScore(result.user);
+                setBorrowBills(result.borrowBills);
+            } catch (error) {
+                console.error("Failed to fetch data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // 更新 JSON 文件
+    const updateBillsInJSON = async (updatedBills, updatedUserCreditScore) => {
+        try {
+            const response = await fetch("/api/update-bill", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    updatedBills,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update bills");
+            }
+
+            const result = await response.json();
+            setUserCreditScore(result.user);
+            setBorrowBills(result.borrowBills);
+        } catch (error) {
+            console.error("Failed to update JSON:", error);
+        }
     };
 
-    // Borrow/Lend Pool Mock Data
-    const lendingPool = [
-        { id: 1, asset: "USDT", type: "Lend", rate: "5%", volume: "$1000" },
-        { id: 2, asset: "ETH", type: "Borrow", rate: "8%", volume: "$2000" },
-        { id: 3, asset: "BTC", type: "Lend", rate: "4%", volume: "$1500" },
-        { id: 4, asset: "DAI", type: "Borrow", rate: "7%", volume: "$1200" },
-    ];
+    // 处理单个还款操作
+    const handleRepayment = async (billId) => {
+        // 更新账单状态为 Paid
+        const updatedBills = borrowBills.map((bill) =>
+            bill.id === billId ? { ...bill, status: "Paid" } : bill
+        );
+
+        try {
+            const response = await fetch("/api/update-bill", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ updatedBills }),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setUserCreditScore(result.user); // 更新信用分
+                setBorrowBills(result.borrowBills); // 更新账单
+            } else {
+                console.error("Failed to update data");
+            }
+        } catch (error) {
+            console.error("Error during repayment:", error);
+        }
+    };
+
+    // 处理借款操作
+    const handleBorrow = async () => {
+        if (!selectedAsset || lendAmount <= 0) {
+            alert("Please select an asset and enter a valid amount.");
+            return;
+        }
+
+        if (lendAmount > userCreditScore.maxBorrowLimit) {
+            alert("Insufficient borrow limit.");
+            return;
+        }
+
+        // 创建新的借款条目
+        const newBill = {
+            id: borrowBills.length + 1, // 确保 ID 唯一
+            asset: selectedAsset,
+            amount: lendAmount,
+            status: "Unpaid",
+        };
+
+        const updatedBills = [...borrowBills, newBill];
+
+        const updatedUserCreditScore = {
+            ...userCreditScore,
+            maxBorrowLimit: userCreditScore.maxBorrowLimit - lendAmount, // 更新 Borrow Limit
+        };
+
+        try {
+            const response = await fetch("/api/update-bill", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ updatedBills }),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+
+                // 更新前端状态
+                setUserCreditScore(result.user);
+                setBorrowBills(result.borrowBills);
+
+                // 重置表单
+                setSelectedAsset("");
+                setLendAmount(0);
+            } else {
+                console.error("Failed to update data");
+            }
+        } catch (error) {
+            console.error("Error during borrowing:", error);
+        }
+    };
+
+    if (!userCreditScore || borrowBills.length === 0) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="container mt-4">
             <h1>Web3 Lending and Borrowing Platform</h1>
 
-            {/* User Credit Information */}
+            {/* 用户信用信息 */}
             <div className="row mt-4">
                 <div className="col-md-6">
                     <div className="card">
                         <div className="card-header">Your Credit Score</div>
                         <div className="card-body">
-                            <h5>Credit Score: <strong>{userCreditScore.creditScore}</strong></h5>
-                            <p>Maximum Borrow Limit: <strong>${userCreditScore.maxBorrowLimit}</strong></p>
-                            <p>Maximum Lend Limit: <strong>${userCreditScore.maxLendLimit}</strong></p>
+                            <h5>
+                                Credit Score: <strong>{userCreditScore.creditScore}</strong>
+                            </h5>
                             <p>
-                                <a href="/faq" className="btn btn-link">
-                                    How can I improve my credit score?
-                                </a>
+                                Maximum Borrow Limit:{" "}
+                                <strong>${userCreditScore.maxBorrowLimit}</strong>
+                            </p>
+                            <p>
+                                Maximum Lend Limit:{" "}
+                                <strong>${userCreditScore.maxLendLimit}</strong>
                             </p>
                         </div>
                     </div>
                 </div>
 
-                {/* Credit Breakdown Chart */}
+                {/* 信用分数图表 */}
                 <div className="col-md-6">
                     <div className="card">
                         <div className="card-header">Credit Score Breakdown</div>
                         <div className="card-body">
-                            <Doughnut data={creditBreakdownData} />
+                            <Doughnut
+                                data={{
+                                    labels: ["Trading Activity", "Staking Activity", "External Model"],
+                                    datasets: [
+                                        {
+                                            label: "Credit Breakdown",
+                                            data: userCreditScore?.breakdown
+                                                ? Object.values(userCreditScore.breakdown)
+                                                : [0, 0, 0], // 默认值，防止报错
+                                            backgroundColor: ["#4caf50", "#2196f3", "#ff9800"],
+                                            borderWidth: 1,
+                                        },
+                                    ],
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Lending Pool Section */}
+            {/* 借入账单 */}
             <div className="mt-5">
-                <h2>Lending Pool</h2>
-                <div className="row">
-                    {lendingPool.map((pool) => (
-                        <div className="col-md-4 mb-4" key={pool.id}>
-                            <div className="card h-100">
-                                <div className="card-body">
-                                    <h5 className="card-title">{pool.asset} ({pool.type})</h5>
-                                    <p>Rate: {pool.rate}</p>
-                                    <p>Volume: {pool.volume}</p>
-                                    <button className="btn btn-primary">
-                                        {pool.type === "Lend" ? "Lend Now" : "Borrow Now"}
+                <h2>Your Borrow Bills</h2>
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {borrowBills.map((bill) => (
+                        <tr key={bill.id}>
+                            <td>{bill.asset || "Unknown Asset"}</td>
+                            <td>${bill.amount}</td>
+                            <td>{bill.status}</td>
+                            <td>
+                                {bill.status === "Unpaid" && (
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={() => handleRepayment(bill.id)}
+                                    >
+                                        Repay
                                     </button>
-                                </div>
-                            </div>
-                        </div>
+                                )}
+                            </td>
+                        </tr>
                     ))}
-                </div>
+                    </tbody>
+                </table>
             </div>
 
-            {/* System Calculation Info */}
+            {/* 借款表单 */}
             <div className="mt-5">
-                <h2>System Credit Score Calculation</h2>
-                <p>
-                    Your credit score is calculated based on:
-                </p>
-                <ul>
-                    <li><strong>Trading Activity:</strong> {userCreditScore.breakdown.trading} points</li>
-                    <li><strong>Staking Activity:</strong> {userCreditScore.breakdown.staking} points</li>
-                    <li><strong>External Model Evaluation:</strong> {userCreditScore.breakdown.externalModel} points</li>
-                </ul>
-                <p>
-                    <a href="/learn-more" className="btn btn-secondary">Learn More About Credit Scoring</a>
-                </p>
+                <h2>Borrow Assets</h2>
+                <div className="form-group">
+                    <label htmlFor="asset">Select Asset:</label>
+                    <select
+                        id="asset"
+                        className="form-control"
+                        value={selectedAsset}
+                        onChange={(e) => setSelectedAsset(e.target.value)}
+                    >
+                        <option value="">-- Select an Asset --</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="SOL">Solana (SOL)</option>
+                    </select>
+                </div>
+                <div className="form-group mt-3">
+                    <label htmlFor="amount">Enter Amount:</label>
+                    <input
+                        type="number"
+                        id="amount"
+                        className="form-control"
+                        value={lendAmount}
+                        onChange={(e) => setLendAmount(Number(e.target.value))}
+                    />
+                </div>
+                <button className="btn btn-primary mt-3" onClick={handleBorrow}>
+                    Borrow Now
+                </button>
             </div>
         </div>
     );
