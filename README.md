@@ -1,3 +1,8 @@
+** HOW TO RUN
+install node 20.18.1
+npm install
+npm run dev
+
 PS2
 - asset security validation system
 - trust credit system for users with a model
