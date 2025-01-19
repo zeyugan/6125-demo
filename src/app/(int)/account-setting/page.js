@@ -64,12 +64,11 @@ export default function AccountSettingsPage() {
               />
             </div>
 
-            {/* Password */}
-            <div className="mb-4 d-flex align-items-center">
-              <div>
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
+            <div className="mb-4">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <div className="input-group">
                 <input
                   type="password"
                   id="password"
@@ -77,8 +76,8 @@ export default function AccountSettingsPage() {
                   value="********"
                   disabled
                 />
+                <button className="btn btn-primary">Change Password</button>
               </div>
-              <button className="btn btn-primary ms-3">Change Password</button>
             </div>
 
             {/* Joined Date */}
