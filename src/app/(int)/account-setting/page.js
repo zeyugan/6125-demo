@@ -1,6 +1,14 @@
-import React from "react";
+"use client";
+
+import { useState } from "react";
+import { useWallet } from "../../../ctx/WalletContext";
 
 export default function AccountSettingsPage() {
+  const { walletAddress } = useWallet();
+  const [username, setUsername] = useState("JohnDoe123");
+
+  const handleUsernameChange = (e) => setUsername(e.target.value);
+
   return (
     <div className="container mt-4">
       <h1>Account Settings</h1>
@@ -22,63 +30,68 @@ export default function AccountSettingsPage() {
               color: "#6c757d",
             }}
           >
-            A
+            {walletAddress ? username.charAt(0).toUpperCase() : "-"}
           </div>
-          <button className="btn btn-primary">Change Avatar</button>
         </div>
 
-        {/* Username */}
+        {/* Wallet Address */}
         <div className="mb-4">
-          <label htmlFor="username" className="form-label">
-            Username
+          <label htmlFor="wallet" className="form-label">
+            Linked Wallet
           </label>
           <input
             type="text"
-            id="username"
+            id="wallet"
             className="form-control"
-            defaultValue="JohnDoe123"
+            value={walletAddress || "Not Connected"}
+            disabled
           />
         </div>
 
-        {/* Linked Wallet */}
-        <div className="mb-4 d-flex align-items-center">
-          <div>
-            <label htmlFor="wallet" className="form-label">
-              Linked Wallet
-            </label>
-            <input
-              type="text"
-              id="wallet"
-              className="form-control"
-              defaultValue="0x123...456"
-              disabled
-            />
-          </div>
-          <button className="btn btn-primary ms-3">Relink</button>
-        </div>
+        {walletAddress ? (
+          <>
+            {/* Username */}
+            <div className="mb-4">
+              <label htmlFor="username" className="form-label">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="form-control"
+                value={username}
+                onChange={handleUsernameChange}
+              />
+            </div>
 
-        {/* Password */}
-        <div className="mb-4 d-flex align-items-center">
-          <div>
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="form-control"
-              value="********"
-              disabled
-            />
-          </div>
-          <button className="btn btn-primary ms-3">Change Password</button>
-        </div>
+            {/* Password */}
+            <div className="mb-4 d-flex align-items-center">
+              <div>
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  className="form-control"
+                  value="********"
+                  disabled
+                />
+              </div>
+              <button className="btn btn-primary ms-3">Change Password</button>
+            </div>
 
-        {/* Joined Date */}
-        <div className="mt-4 text-muted">
-          <hr />
-          <p>Joined on 2024-01-01</p>
-        </div>
+            {/* Joined Date */}
+            <div className="mt-4 text-muted">
+              <hr />
+              <p>Joined on 2024-01-01</p>
+            </div>
+          </>
+        ) : (
+          <div className="alert alert-warning mt-4" role="alert">
+            Please connect your wallet to view your account details.
+          </div>
+        )}
       </div>
     </div>
   );

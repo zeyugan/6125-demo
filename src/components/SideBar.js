@@ -6,7 +6,6 @@ export default function SideBar() {
 
   const menuItems = [
     { title: 'Dashboard', collapsedTitle: 'D', href: '/dashboard' },
-    { title: 'Cases Management', collapsedTitle: 'C', href: '/cases' },
     { title: 'Lend/Borrow', collapsedTitle: 'L', href: '/lend_borrow' },
     { title: 'FAQ', collapsedTitle: 'F', href: '/faq' },
     { title: 'Marketplace', collapsedTitle: 'M', href: '/marketplace' },
