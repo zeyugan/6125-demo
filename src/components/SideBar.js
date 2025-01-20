@@ -1,31 +1,31 @@
-'use client';
+"use client";
 import { useState } from "react";
 
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
 
   const menuItems = [
-    { title: 'Dashboard', collapsedTitle: 'D', href: '/dashboard' },
-    { title: 'Lend/Borrow', collapsedTitle: 'L', href: '/lend_borrow' },
-    { title: 'FAQ', collapsedTitle: 'F', href: '/faq' },
-    { title: 'Marketplace', collapsedTitle: 'M', href: '/marketplace' },
-    { title: 'Quick Top-up', collapsedTitle: 'T', href: '/qtopup' },
-    { title: 'Account Setting', collapsedTitle: 'A', href: '/account-setting' },
+    { title: "Dashboard", collapsedTitle: "D", href: "/dashboard" },
+    { title: "Lend/Borrow", collapsedTitle: "L", href: "/lend_borrow" },
+    { title: "Marketplace", collapsedTitle: "M", href: "/marketplace" },
+    { title: "Quick Top-up", collapsedTitle: "T", href: "/qtopup" },
+    { title: "Account Setting", collapsedTitle: "A", href: "/account-setting" },
+    { title: "FAQ", collapsedTitle: "F", href: "/faq" },
   ];
 
   return (
     <div
       className="sidebar bg-dark text-white"
       style={{
-        width: collapsed ? '80px' : '250px',
-        transition: 'width 0.3s ease',
+        width: collapsed ? "80px" : "250px",
+        transition: "width 0.3s ease",
       }}
     >
       <button
         className="btn btn-dark w-100"
         onClick={() => setCollapsed(!collapsed)}
       >
-        {collapsed ? '>' : '<'}
+        {collapsed ? ">" : "<"}
       </button>
       <ul className="nav flex-column mt-3">
         {menuItems.map((item, index) => (
@@ -33,7 +33,7 @@ export default function SideBar() {
             <a
               className="nav-link text-light text-truncate"
               href={item.href}
-              style={{ textAlign: collapsed ? 'center' : 'left' }}
+              style={{ textAlign: collapsed ? "center" : "left" }}
             >
               {collapsed ? item.collapsedTitle : item.title}
             </a>
