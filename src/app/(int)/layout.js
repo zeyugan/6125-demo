@@ -4,11 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SideBar from "../../components/SideBar";
 import TopBar from "../../components/TopBar";
 
-<<<<<<< HEAD
 import { WalletProvider } from "../../ctx/WalletContext";
 
-=======
->>>>>>> 25cedc9 (feat: update myasset page with withdraw functionality)
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
