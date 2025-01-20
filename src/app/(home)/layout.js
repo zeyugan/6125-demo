@@ -1,6 +1,6 @@
 import "../globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { AssetProvider } from '@/contexts/AssetContext';
 export const metadata = {
   title: "Crypto Money",
   description: "Crypto financing platform",
