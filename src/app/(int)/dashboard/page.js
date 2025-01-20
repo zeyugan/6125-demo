@@ -1,13 +1,16 @@
 "use client";
 
 import React from "react";
+import { useWallet } from "../../../ctx/WalletContext";
 import CryptoBadge from "../../../components/CryptoBadge";
 
 export default function DashboardPage() {
+  const { walletAddress } = useWallet();
+
   const walletDetails = [
     { crypto: "BTC", balance: "1.234", value: "0.000076" },
     { crypto: "ETH", balance: "10.456", value: "0.000238" },
-    { crypto: "USDT",  balance: "5000", value: "5000.000000" },
+    { crypto: "USDT", balance: "5000", value: "5000.000000" },
   ];
 
   const activeTrades = [
@@ -95,43 +98,43 @@ export default function DashboardPage() {
       {/* Wallet Details and Active Trades */}
       <div className="row mt-4">
         {/* Left Section: Wallet Details */}
-        <div className="col-md-6">
-          <div className="card">
-            <div
-              className="card-header"
-              style={{ backgroundColor: "#f8f9fa", color: "#000" }}
-            >
-              <h5>Your Wallet Details</h5>
-            </div>
-            <div className="card-body">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Cryptocurrency</th>
-                    <th>Balance</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {walletDetails.map((wallet, index) => (
-                    <tr key={index}>
-                      <td>
-                        <CryptoBadge
-                          crypto={wallet.crypto}
-                        />
-                      </td>
-                      <td>{wallet.balance}</td>
-                      <td>{wallet.value}</td>
+        {walletAddress && (
+          <div className="col-md-6">
+            <div className="card">
+              <div
+                className="card-header"
+                style={{ backgroundColor: "#f8f9fa", color: "#000" }}
+              >
+                <h5>Your Wallet Details</h5>
+              </div>
+              <div className="card-body">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Cryptocurrency</th>
+                      <th>Balance</th>
+                      <th>Value</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {walletDetails.map((wallet, index) => (
+                      <tr key={index}>
+                        <td>
+                          <CryptoBadge crypto={wallet.crypto} />
+                        </td>
+                        <td>{wallet.balance}</td>
+                        <td>{wallet.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Right Section: Active Trades */}
-        <div className="col-md-6">
+        <div className={`col-md-${walletAddress ? 6 : 12}`}>
           <div className="card">
             <div
               className="card-header"
@@ -157,9 +160,7 @@ export default function DashboardPage() {
                       <td>{trade.type}</td>
                       <td>{trade.amount}</td>
                       <td>
-                        <CryptoBadge
-                          crypto={trade.crypto}
-                        />
+                        <CryptoBadge crypto={trade.crypto} />
                       </td>
                       <td>{trade.price}</td>
                     </tr>
@@ -195,9 +196,7 @@ export default function DashboardPage() {
                 <td>{tx.amount}</td>
                 <td>{tx.dealer}</td>
                 <td>
-                  <CryptoBadge
-                    crypto={tx.crypto}
-                  />
+                  <CryptoBadge crypto={tx.crypto} />
                 </td>
                 <td>{tx.price}</td>
               </tr>
@@ -208,4 +207,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
